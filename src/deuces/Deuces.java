@@ -5,10 +5,12 @@ import java.awt.Dimension;
 import ks.client.gamefactory.GameWindow;
 import ks.launcher.Main;
 import ks.common.games.Solitaire;
+import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Deck;
 import ks.common.model.MultiDeck;
 import ks.common.model.Pile;
+import ks.common.model.Stack;
 import ks.common.view.CardImages;
 import ks.common.view.ColumnView;
 import ks.common.view.DeckView;
@@ -22,6 +24,7 @@ public class Deuces extends Solitaire{
 	Pile foundation1, foundation2, foundation3, foundation4, foundation5, foundation6, foundation7, foundation8;
 	Column tableau1, tableau2, tableau3, tableau4, tableau5, tableau6, tableau7, tableau8, tableau9, tableau10;
 	Column waste;
+	Pile foundations[];
 	
 	DeckView deckView;
 	PileView foundationView1, foundationView2, foundationView3, foundationView4, foundationView5, foundationView6, foundationView7, foundationView8;
@@ -31,25 +34,32 @@ public class Deuces extends Solitaire{
 	IntegerView scoreView, numLeftView;
 	
 	private void initializeModel(int seed) {
-		deck = new MultiDeck(2);
-		deck.create(seed);
-		addModelElement(deck);
+		
+		foundations = new Pile[8];
 		
 		foundation1 = new Pile("foundation1");
+		foundations[0] = foundation1;
 		addModelElement(foundation1);
 		foundation2 = new Pile("foundation2");
+		foundations[1] = foundation2;
 		addModelElement(foundation2);
 		foundation3 = new Pile("foundation3");
+		foundations[2] = foundation3;
 		addModelElement(foundation3);
 		foundation4 = new Pile("foundation4");
+		foundations[3] = foundation4;
 		addModelElement(foundation4);
 		foundation5 = new Pile("foundation5");
+		foundations[4] = foundation5;
 		addModelElement(foundation5);
 		foundation6 = new Pile("foundation6");
+		foundations[5] = foundation6;
 		addModelElement(foundation6);
 		foundation7 = new Pile("foundation7");
+		foundations[6] = foundation7;
 		addModelElement(foundation7);
 		foundation8 = new Pile("foundation8");
+		foundations[7] = foundation8;
 		addModelElement(foundation8);
 		
 		tableau1 = new Column("tableau1");
@@ -72,6 +82,26 @@ public class Deuces extends Solitaire{
 		addModelElement(tableau7);
 		tableau10 = new Column("tableau10");
 		addModelElement(tableau8);
+		
+		/**
+		 * Create deck, then iterate through it to extract just the two's and insert them into the foundations. The extra cards are then reinserted into the deck
+		 */
+		deck = new MultiDeck(2);
+		deck.create(seed);
+		addModelElement(deck);
+		
+		Stack notTwos = new Stack();
+		int currFoundation = 0;
+		for (int i = 0; i < 104; i++) {
+			Card c = deck.get();
+			if (c.getRank() == Card.TWO) {
+				foundations[currFoundation].add(c);
+				currFoundation++;
+			} else {
+				notTwos.add(c);
+			}
+		}
+		deck.push(notTwos);
 		
 		waste = new Column("waste");
 		addModelElement(waste);
@@ -163,32 +193,32 @@ public class Deuces extends Solitaire{
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		initializeModel(Deck.OrderByRank);
+		initializeModel(getSeed());
 		initializeView();
 		
-		foundation1.add(deck.get());
-		foundation2.add(deck.get());
-		foundation3.add(deck.get());
-		foundation4.add(deck.get());
-		foundation5.add(deck.get());
-		foundation6.add(deck.get());
-		foundation7.add(deck.get());
-		foundation8.add(deck.get());
+//		foundation1.add(deck.get());
+//		foundation2.add(deck.get());
+//		foundation3.add(deck.get());
+//		foundation4.add(deck.get());
+//		foundation5.add(deck.get());
+//		foundation6.add(deck.get());
+//		foundation7.add(deck.get());
+//		foundation8.add(deck.get());
 		
-		waste.add(deck.get());
-		waste.add(deck.get());
-		
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
-		tableau1.add(deck.get());
+//		waste.add(deck.get());
+//		waste.add(deck.get());
+//		
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
+//		tableau1.add(deck.get());
 	}
 	
 	@Override
