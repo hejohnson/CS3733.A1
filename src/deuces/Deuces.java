@@ -4,7 +4,9 @@ import java.awt.Dimension;
 
 import ks.client.gamefactory.GameWindow;
 import ks.launcher.Main;
+import ks.common.controller.SolitaireMouseMotionAdapter;
 import ks.common.games.Solitaire;
+import ks.common.games.SolitaireUndoAdapter;
 import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Deck;
@@ -178,6 +180,12 @@ public class Deuces extends Solitaire{
 		addViewWidget(wasteView);
 	}
 	
+	void initializeControllers() {
+		deckView.setMouseAdapter(new DeucesDeckController(this, deck, waste));
+		deckView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		deckView.setUndoAdapter(new SolitaireUndoAdapter(this));
+	};
+	
 	@Override
 	public boolean hasWon() {
 		return false;
@@ -195,30 +203,11 @@ public class Deuces extends Solitaire{
 		// TODO Auto-generated method stub
 		initializeModel(getSeed());
 		initializeView();
+		initializeControllers();
 		
-//		foundation1.add(deck.get());
-//		foundation2.add(deck.get());
-//		foundation3.add(deck.get());
-//		foundation4.add(deck.get());
-//		foundation5.add(deck.get());
-//		foundation6.add(deck.get());
-//		foundation7.add(deck.get());
-//		foundation8.add(deck.get());
-		
-//		waste.add(deck.get());
-//		waste.add(deck.get());
-//		
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
-//		tableau1.add(deck.get());
+		updateScore(0);
+		updateNumberCardsLeft(96);
+
 	}
 	
 	@Override
