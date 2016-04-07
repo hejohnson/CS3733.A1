@@ -178,12 +178,24 @@ public class Deuces extends Solitaire{
 		wasteView = new FanPileView(1, waste);
 		wasteView.setBounds(260+10*w, 40+h, w, h);
 		addViewWidget(wasteView);
+		
+		scoreView = new IntegerView(score);
+		scoreView.setBounds(20, 20, w, h);
+		addViewWidget(scoreView);
+		
+		numLeftView = new IntegerView(numLeft);
+		numLeftView.setBounds(9*w+200, 20, 100, h);
+		addViewWidget(numLeftView);
 	}
 	
 	void initializeControllers() {
 		deckView.setMouseAdapter(new DeucesDeckController(this, deck, waste));
 		deckView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 		deckView.setUndoAdapter(new SolitaireUndoAdapter(this));
+		
+		wasteView.setMouseAdapter(new DeucesWastePileController(this, wasteView));
+		wasteView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+		wasteView.setUndoAdapter(new SolitaireUndoAdapter(this));
 	};
 	
 	@Override
