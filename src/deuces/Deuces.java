@@ -23,15 +23,11 @@ import ks.common.view.PileView;
 public class Deuces extends Solitaire{
 	
 	MultiDeck deck;
-	Pile foundation1, foundation2, foundation3, foundation4, foundation5, foundation6, foundation7, foundation8;
-	Column tableau1, tableau2, tableau3, tableau4, tableau5, tableau6, tableau7, tableau8, tableau9, tableau10;
 	Column waste;
 	Pile foundations[];
 	Column tableaus[];
 	
 	DeckView deckView;
-	PileView foundationView1, foundationView2, foundationView3, foundationView4, foundationView5, foundationView6, foundationView7, foundationView8;
-	ColumnView tableauView1, tableauView2, tableauView3, tableauView4, tableauView5, tableauView6, tableauView7, tableauView8, tableauView9, tableauView10;
 	FanPileView wasteView;
 	PileView foundationViews[];
 	ColumnView tableauViews[];
