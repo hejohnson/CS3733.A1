@@ -129,6 +129,12 @@ public class Deuces extends Solitaire{
 			foundationViews[i].setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 			foundationViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
 		}
+		
+		for (int i = 0; i<10; i++) {
+			tableauViews[i].setMouseAdapter(new DeucesTableauController(this, tableauViews[i]));
+			tableauViews[i].setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+			tableauViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
+		}
 	};
 	
 	@Override

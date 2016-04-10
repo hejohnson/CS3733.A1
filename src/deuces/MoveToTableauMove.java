@@ -11,12 +11,12 @@ import ks.common.model.Pile;
  * @author hejohnson
  */
 
-public class MoveToFoundationMove extends Move {
+public class MoveToTableauMove extends Move {
 	Column draggedCards;
 	Column destination;
 	Column source;
 	
-	MoveToFoundationMove (Column source, Column draggedCards, Column destination) {
+	MoveToTableauMove (Column source, Column draggedCards, Column destination) {
 		this.draggedCards = draggedCards;
 		this.source = source;
 		this.destination = destination;
@@ -26,7 +26,6 @@ public class MoveToFoundationMove extends Move {
 	public boolean doMove(Solitaire game) {
 		if (valid(game)) {
 			destination.push(draggedCards);
-			game.updateScore(draggedCards.count());
 			return true;
 		}
 		
@@ -37,7 +36,6 @@ public class MoveToFoundationMove extends Move {
 	public boolean undo(Solitaire game) {
 		for (int i = 0; i<draggedCards.count(); i++) {
 			source.add(destination.get());
-			game.updateScore(-1);
 		}
 		
 		return true;
@@ -45,6 +43,9 @@ public class MoveToFoundationMove extends Move {
 
 	@Override
 	public boolean valid(Solitaire game) {
-		return (destination.suit()==draggedCards.suit() && destination.rank()+1==draggedCards.rank());
+		if(destination.empty()){
+			return true;
+		}
+		return destination.suit()==draggedCards.suit() && destination.rank()-1==draggedCards.rank();
 	}
 }
