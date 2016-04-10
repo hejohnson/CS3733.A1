@@ -25,7 +25,10 @@ public class MoveToFoundationMove extends Move {
 	@Override
 	public boolean doMove(Solitaire game) {
 		if (valid(game)) {
-			destination.push(draggedCards);
+			for (int i = 0; i<draggedCards.count(); i++) {
+				destination.add(draggedCards.get());
+			} 
+			//destination.push(draggedCards);
 			game.updateScore(draggedCards.count());
 			return true;
 		}

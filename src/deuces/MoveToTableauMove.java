@@ -46,6 +46,6 @@ public class MoveToTableauMove extends Move {
 		if(destination.empty()){
 			return true;
 		}
-		return destination.suit()==draggedCards.suit() && destination.rank()-1==draggedCards.rank();
+		return destination.suit()==draggedCards.suit() && destination.rank()==(draggedCards.rank()+draggedCards.count());
 	}
 }
