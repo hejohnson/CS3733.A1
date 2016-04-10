@@ -24,23 +24,23 @@ public class Deuces extends Solitaire{
 	
 	MultiDeck deck;
 	Column waste;
-	Pile foundations[];
+	Column foundations[];
 	Column tableaus[];
 	
 	DeckView deckView;
 	FanPileView wasteView;
-	PileView foundationViews[];
+	FanPileView foundationViews[];
 	ColumnView tableauViews[];
 	
 	IntegerView scoreView, numLeftView;
 	
 	private void initializeModel(int seed) {
 		
-		foundations = new Pile[8];
+		foundations = new Column[8];
 		tableaus = new Column[10];
 		
 		for (int i = 0; i<8; i++) {
-			Pile found = new Pile("foundation"+i);
+			Column found = new Column("foundation"+i);
 			foundations[i] = found;
 			addModelElement(found);
 		}
@@ -85,11 +85,11 @@ public class Deuces extends Solitaire{
 		deckView.setBounds(260 + 10*w, 20, w, h);
 		addViewWidget(deckView);
 		
-		foundationViews = new PileView[8];
+		foundationViews = new FanPileView[8];
 		tableauViews = new ColumnView[10];
 		
 		for (int i = 0; i<8; i++) {
-			PileView foundView = new PileView(foundations[i]);
+			FanPileView foundView = new FanPileView(1, foundations[i]);
 			foundView.setBounds((20+(w+20)*(i+1)), 20, w, h);
 			foundationViews[i] = foundView;
 			addViewWidget(foundView);
@@ -123,6 +123,12 @@ public class Deuces extends Solitaire{
 		wasteView.setMouseAdapter(new DeucesWastePileController(this, wasteView));
 		wasteView.setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
 		wasteView.setUndoAdapter(new SolitaireUndoAdapter(this));
+		
+		for (int i = 0; i<8; i++) {
+			foundationViews[i].setMouseAdapter(new DeucesFoundationController(this, foundationViews[i]));
+			foundationViews[i].setMouseMotionAdapter(new SolitaireMouseMotionAdapter(this));
+			foundationViews[i].setUndoAdapter(new SolitaireUndoAdapter(this));
+		}
 	};
 	
 	@Override
@@ -160,5 +166,4 @@ public class Deuces extends Solitaire{
 		GameWindow gw = Main.generateWindow(new Deuces(), Deck.OrderByRank);
 		gw.setVisible(true);
 	}
-	
 }

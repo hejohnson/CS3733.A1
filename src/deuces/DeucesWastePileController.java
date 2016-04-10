@@ -4,20 +4,26 @@ import java.awt.event.MouseEvent;
 
 import ks.common.controller.SolitaireReleasedAdapter;
 import ks.common.games.Solitaire;
+import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Pile;
+import ks.common.model.Stack;
 import ks.common.view.CardView;
+import ks.common.view.ColumnView;
 import ks.common.view.Container;
 import ks.common.view.FanPileView;
 import ks.common.view.PileView;
+import ks.common.view.RowView;
 import ks.common.view.Widget;
 
 public class DeucesWastePileController extends SolitaireReleasedAdapter {
 
 	FanPileView src;
+	Deuces game;
 	
-	public DeucesWastePileController(Solitaire game, FanPileView src) {
+	public DeucesWastePileController(Deuces game, FanPileView src) {
 		super(game);
+		this.game = game;
 		this.src = src;
 	}
 	
@@ -36,7 +42,7 @@ public class DeucesWastePileController extends SolitaireReleasedAdapter {
 	
 		// Get a card to move from PileView. Note: this returns a CardView.
 		// Note that this method will alter the model for BuildablePileView if the condition is met.
-		CardView cardView = src.getCardViewForTopCard (me);
+		RowView cardView = src.getRowView (me);
 		
 		// an invalid selection of some sort.
 		if (cardView == null) {
