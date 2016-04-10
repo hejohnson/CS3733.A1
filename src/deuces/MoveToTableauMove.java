@@ -1,6 +1,7 @@
 package deuces;
 
 import ks.common.games.Solitaire;
+import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Move;
 import ks.common.model.MultiDeck;
@@ -46,6 +47,6 @@ public class MoveToTableauMove extends Move {
 		if(destination.empty()){
 			return true;
 		}
-		return destination.suit()==draggedCards.suit() && destination.rank()==(draggedCards.rank()+draggedCards.count());
+		return destination.suit()==draggedCards.suit() && (destination.rank()==(draggedCards.rank()+draggedCards.count()) || (destination.rank()==Card.ACE && (draggedCards.rank()+draggedCards.count())-1 == Card.KING));
 	}
 }

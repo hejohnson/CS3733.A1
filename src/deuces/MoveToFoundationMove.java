@@ -1,6 +1,7 @@
 package deuces;
 
 import ks.common.games.Solitaire;
+import ks.common.model.Card;
 import ks.common.model.Column;
 import ks.common.model.Move;
 import ks.common.model.MultiDeck;
@@ -48,6 +49,6 @@ public class MoveToFoundationMove extends Move {
 
 	@Override
 	public boolean valid(Solitaire game) {
-		return (destination.suit()==draggedCards.suit() && destination.rank()+1==draggedCards.rank());
+		return (destination.suit()==draggedCards.suit() && ((destination.rank()+1==draggedCards.rank()) || (draggedCards.rank()==Card.ACE && destination.rank()==Card.KING)));
 	}
 }
