@@ -1,5 +1,7 @@
-package deuces;
+package hejohnson;
 
+import hejohnson.DealCardMove;
+import hejohnson.Deuces;
 import junit.framework.TestCase;
 import ks.client.gamefactory.GameWindow;
 import ks.common.model.Card;
