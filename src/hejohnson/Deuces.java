@@ -73,6 +73,10 @@ public class Deuces extends Solitaire{
 		
 		waste = new Column("waste");
 		addModelElement(waste);
+		
+		for (int i=0; i<10; i++) {
+			tableaus[i].add(deck.get());
+		}
 	}
 	
 	private void initializeView() {
@@ -139,7 +143,7 @@ public class Deuces extends Solitaire{
 	
 	@Override
 	public boolean hasWon() {
-		return false;
+		return getScoreValue() == 104;
 		
 	}
 
@@ -156,8 +160,8 @@ public class Deuces extends Solitaire{
 		initializeView();
 		initializeControllers();
 		
-		updateScore(0);
-		updateNumberCardsLeft(96);
+		updateScore(8);
+		updateNumberCardsLeft(86);
 
 	}
 	

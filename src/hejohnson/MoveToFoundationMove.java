@@ -16,17 +16,18 @@ public class MoveToFoundationMove extends Move {
 	Column draggedCards;
 	Column destination;
 	Column source;
+	int numCardsMoving;
 	
 	MoveToFoundationMove (Column source, Column draggedCards, Column destination) {
 		this.draggedCards = draggedCards;
 		this.source = source;
 		this.destination = destination;
+		numCardsMoving = draggedCards.count();
 	}
 
 	@Override
 	public boolean doMove(Solitaire game) {
 		if (valid(game)) {
-			int numCardsMoving = draggedCards.count();
 			for (int i = 0; i<numCardsMoving; i++) {
 				destination.add(draggedCards.get());
 				game.updateScore(1);
@@ -41,7 +42,7 @@ public class MoveToFoundationMove extends Move {
 
 	@Override
 	public boolean undo(Solitaire game) {
-		for (int i = 0; i<draggedCards.count(); i++) {
+		for (int i = 0; i<numCardsMoving; i++) {
 			source.add(destination.get());
 			game.updateScore(-1);
 		}
